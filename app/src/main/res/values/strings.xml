@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HoaxHound</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="detect_text_from_camera">Detect Text From Camera</string>
+    <string name="detect_text">Detect Text</string>
+    <string name="predict">Predict</string>
+    <string name="text_to_be_predicted">Text to be predicted</string>
+</resources>
