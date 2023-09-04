@@ -106,19 +106,24 @@ public class CameraDetect extends AppCompatActivity {
         // this is a method to detect a text from image.
         // below line is to create variable for firebase
         // vision image and we are getting image bitmap.
-        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
+        try {
 
-        // below line is to create a variable for detector and we
-        // are getting vision text detector from our firebase vision.
-        FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+            FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
 
-        // adding on success listener method to detect the text from image.
-        // calling a method to process
-        // our text after extracting.
-        detector.processImage(image).addOnSuccessListener(this::processTxt).addOnFailureListener(e -> {
-            // handling an error listener.
-            Toast.makeText(CameraDetect.this, "Fail to detect the text from image..", Toast.LENGTH_SHORT).show();
-        });
+            // below line is to create a variable for detector and we
+            // are getting vision text detector from our firebase vision.
+            FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+
+            // adding on success listener method to detect the text from image.
+            // calling a method to process
+            // our text after extracting.
+            detector.processImage(image).addOnSuccessListener(this::processTxt).addOnFailureListener(e -> {
+                // handling an error listener.
+                Toast.makeText(CameraDetect.this, "Fail to detect the text from image..", Toast.LENGTH_SHORT).show();
+            });
+        } catch(NullPointerException ex){
+            Toast.makeText(CameraDetect.this, "No Image Found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void processTxt(FirebaseVisionText text) {
