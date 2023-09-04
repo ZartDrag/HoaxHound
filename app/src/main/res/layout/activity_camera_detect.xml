@@ -16,7 +16,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131" />
+        app:layout_constraintVertical_bias="0.131"
+        android:contentDescription="@string/image_scanner"/>
 
     <EditText
         android:id="@+id/detected_text"
@@ -29,7 +30,7 @@
         app:layout_constraintVertical_bias="0.175"
         android:text="@string/text_to_be_predicted"
         android:autofillHints="@string/text_to_be_predicted"
-        android:inputType="textAutoCorrect" />
+        android:inputType="textMultiLine|textAutoCorrect" />
 
     <Button
         android:id="@+id/capture_button"

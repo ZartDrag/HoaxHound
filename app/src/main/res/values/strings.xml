@@ -5,4 +5,7 @@
     <string name="detect_text">Detect Text</string>
     <string name="predict">Predict</string>
     <string name="text_to_be_predicted">Text to be predicted</string>
+    <string name="bvicam_logo">BVICAM Logo</string>
+    <string name="what_is_fake_news">What is Fake News?</string>
+    <string name="image_scanner">Image Scanner</string>
 </resources>
