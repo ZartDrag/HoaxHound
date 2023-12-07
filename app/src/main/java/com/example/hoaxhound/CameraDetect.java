@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,6 +59,16 @@ public class CameraDetect extends AppCompatActivity {
         captureBtn.setOnClickListener(view -> checkCameraPermission());
         Loading = findViewById(R.id.loading_bar);
         predictBtn.setOnClickListener(v -> predictText());
+
+        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) TextBox.getLayoutParams();
+        params.height = (int) (screenHeight * 0.6);
+        TextBox.setLayoutParams(params);
+
+        TextView semicircle = findViewById(R.id.textView);
+        params = (ViewGroup.MarginLayoutParams) semicircle.getLayoutParams();
+        params.height = (int) (screenHeight * 0.25);
+        semicircle.setLayoutParams(params);
     }
 
 //    static final int REQUEST_IMAGE_CAPTURE = 1;

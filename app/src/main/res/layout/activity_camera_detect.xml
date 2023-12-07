@@ -9,92 +9,115 @@
 
     <ImageView
         android:id="@+id/pic_view"
+        android:elevation="3dp"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.862"
         android:contentDescription="@string/image_scanner"
-        android:src="@drawable/image_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.148" />
+        />
 
-
-    <TextView
-        android:id="@+id/result_text_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_to_be_predicted"
-        android:textColor="@color/white"
-        android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.175"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.529" />
 
     <EditText
+        android:padding="10sp"
         android:id="@+id/detected_text"
-        android:layout_width="282dp"
-        android:layout_height="263dp"
+        android:layout_width="367dp"
+        android:layout_height="347dp"
+        android:layout_margin="21dp"
         android:autofillHints="@string/text_to_be_predicted"
+        android:background="@drawable/box_shadow"
+        android:elevation="6dp"
+        android:gravity="top|start"
         android:inputType="textMultiLine|textAutoCorrect"
         android:text="@string/text_to_be_predicted"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/predict_button"
-        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pic_view"
-        app:layout_constraintVertical_bias="0.752" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13" />
 
     <LinearLayout
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/capture_dabba"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:background="@drawable/golden_circle"
-        app:layout_constraintBottom_toTopOf="@+id/predict_button"
-        app:layout_constraintEnd_toEndOf="@+id/predict_button"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="@+id/predict_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974">
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0">
 
-            <ImageView
-                android:id="@+id/capture_button"
-                android:padding="12dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/camera_icon_white"
-                />
+                <ImageView
+                    android:id="@+id/capture_button"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:contentDescription="@string/camera_icon"
+                    android:padding="12dp"
+                    android:src="@drawable/camera_icon_white" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/predict_button"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:background="@drawable/golden_circle"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.967">
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0">
 
         <ProgressBar
             android:id="@+id/loading_bar"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:indeterminate="true"
             android:padding="12dp"
             android:visibility="gone" />
 
-        <ImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:padding="12dp"
-            android:src="@drawable/arrow_right_white" />
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:contentDescription="@string/arrow_icon"
+                    android:padding="12dp"
+                    android:src="@drawable/arrow_right_white" />
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/result_text_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30sp"
+        android:elevation="6dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.927"
+        tools:layout_editor_absoluteX="30dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/semicircle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

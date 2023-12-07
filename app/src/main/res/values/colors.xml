@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="matte_black">#262626</color>
-    <color name = "gold">#f1c40f</color>
+    <color name = "gold">#DCB356</color>
     <color name="yellow">#ffa500</color>
+    <color name="grey_100">#F5F5F5</color>
 </resources>

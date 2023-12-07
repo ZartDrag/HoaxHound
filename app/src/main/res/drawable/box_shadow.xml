@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Drop Shadow Stack -->
+<!--    <item>-->
+<!--        <shape>-->
+<!--            <corners android:radius="4dp" />-->
+
+<!--            <padding-->
+<!--                android:bottom="2dp"-->
+<!--                android:left="2dp"-->
+<!--                android:right="2dp"-->
+<!--                android:top="2dp" />-->
+
+<!--            <solid android:color="#20000000" /> &lt;!&ndash; Darker shadow color for black background &ndash;&gt;-->
+<!--        </shape>-->
+<!--    </item>-->
+<!--    <item>-->
+<!--        <shape>-->
+<!--            <corners android:radius="4dp" />-->
+
+<!--            <padding-->
+<!--                android:bottom="2dp"-->
+<!--                android:left="2dp"-->
+<!--                android:right="2dp"-->
+<!--                android:top="2dp" />-->
+
+<!--            <solid android:color="@color/matte_black" /> &lt;!&ndash; Darker shadow color for black background &ndash;&gt;-->
+<!--        </shape>-->
+<!--    </item>-->
+<!--    <item>-->
+<!--        <shape>-->
+<!--            <corners android:radius="4dp" />-->
+
+<!--            <padding-->
+<!--                android:bottom="2dp"-->
+<!--                android:left="2dp"-->
+<!--                android:right="2dp"-->
+<!--                android:top="2dp" />-->
+
+<!--            <solid android:color="#40d5d5d5" />-->
+<!--        </shape>-->
+<!--    </item>-->
+<!--    <item>-->
+<!--        <shape>-->
+<!--            <corners android:radius="6dp" />-->
+
+<!--            <padding-->
+<!--                android:bottom="2dp"-->
+<!--                android:left="2dp"-->
+<!--                android:right="2dp"-->
+<!--                android:top="2dp" />-->
+
+<!--            <solid android:color="#50cbcbcb" />-->
+<!--        </shape>-->
+<!--    </item>-->
+<!--    <item>-->
+<!--        <shape>-->
+<!--            <corners android:radius="4dp" />-->
+
+<!--            <padding-->
+<!--                android:bottom="2dp"-->
+<!--                android:left="2dp"-->
+<!--                android:right="2dp"-->
+<!--                android:top="2dp" />-->
+
+<!--            <solid android:color="#70bababa" />-->
+<!--        </shape>-->
+<!--    </item>-->
+
+<!--    &lt;!&ndash; Background &ndash;&gt;-->
+    <item>
+        <shape>
+            <solid android:color="#FFFFFF" /> <!-- Adjusted to black -->
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+</layer-list>
