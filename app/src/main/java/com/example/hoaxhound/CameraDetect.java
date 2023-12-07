@@ -4,17 +4,25 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -22,16 +30,22 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
-
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import android.Manifest;
 public class CameraDetect extends AppCompatActivity {
 
     private ImageView ImgBox;
     private EditText TextBox;
-
+    private ImageView captureBtn;
     // variable for our image bitmap.
     private Bitmap imageBitmap;
+    private ProgressBar Loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +53,12 @@ public class CameraDetect extends AppCompatActivity {
 
         ImgBox = findViewById(R.id.pic_view);
         TextBox = findViewById(R.id.detected_text);
-        Button captureBtn = findViewById(R.id.capture_button);
-        Button detectBtn = findViewById(R.id.detect_text_button);
+        captureBtn = findViewById(R.id.capture_button);
+        LinearLayout predictBtn = findViewById(R.id.predict_button);
 
-        detectBtn.setOnClickListener(v -> detectTxt());
-
-        captureBtn.setOnClickListener(view -> dispatchTakePictureIntent());
+        captureBtn.setOnClickListener(view -> checkCameraPermission());
+        Loading = findViewById(R.id.loading_bar);
+        predictBtn.setOnClickListener(v -> predictText());
     }
 
 //    static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -62,22 +76,29 @@ public class CameraDetect extends AppCompatActivity {
         }
     }
 
-    //Deprecated Code
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        // calling on activity result method.
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            // on below line we are getting
-//            // data from our bundles. .
-//            Bundle extras = data.getExtras();
-//            imageBitmap = (Bitmap) extras.get("data");
-//
-//            // below line is to set the
-//            // image bitmap to our image.
-//            ImgBox.setImageBitmap(imageBitmap);
-//        }
-//    }
+    public void checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Camera permission has not been granted
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA,}, 1);
+        } else
+            dispatchTakePictureIntent();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            // Check if the permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(this, "Camera Permission not granted", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     //New Code
     ActivityResultLauncher<Intent> CameraActivityResultLauncher = registerForActivityResult(
@@ -96,6 +117,8 @@ public class CameraDetect extends AppCompatActivity {
                         // below line is to set the
                         // image bitmap to our image.
                         ImgBox.setImageBitmap(imageBitmap);
+                        captureBtn.setImageResource(R.drawable.recapture_icon);
+                        detectTxt();
                     }
                     Log.i("TAG", String.valueOf(result));
                 }
@@ -149,5 +172,37 @@ public class CameraDetect extends AppCompatActivity {
             // string to our text view.
             TextBox.setText(txt);
         }
+    }
+
+    private void predictText(){
+        Loading.setVisibility(View.VISIBLE);
+        ApiService apiService = RetrofitInstance.getRetrofitInstance().create(ApiService.class);
+
+        Call<ApiResponseModel> call = apiService.postData("dummy");
+        //send data as arguments here
+
+        TextView ResultTextBox = findViewById(R.id.result_text_box);
+        call.enqueue(new Callback<ApiResponseModel>() {
+            @Override
+            public void onResponse(Call<ApiResponseModel> call, Response<ApiResponseModel> response) {
+                if (response.isSuccessful()) {
+                    ApiResponseModel data = response.body();
+                    // Process the response data
+                    String text = "The News Article is " + data.getResponse();
+                    ResultTextBox.setText(text);
+                    Loading.setVisibility(View.GONE);
+                } else {
+                    // Handle error
+                    Log.i("API Error", "No Response");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponseModel> call, Throwable t) {
+                t.printStackTrace();
+                // Handle failure
+                Log.i("API Error", "Api Error");
+            }
+        });
     }
 }

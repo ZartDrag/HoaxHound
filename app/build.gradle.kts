@@ -50,4 +50,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-ml-vision:24.1.0");
     implementation ("com.google.firebase:firebase-ml-vision-barcode-model:16.1.2")
 
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
 }

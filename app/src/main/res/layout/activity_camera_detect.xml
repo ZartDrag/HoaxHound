@@ -4,72 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/matte_black"
     tools:context=".CameraDetect">
 
     <ImageView
         android:id="@+id/pic_view"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/barcode_scanner"
+        android:contentDescription="@string/image_scanner"
+        android:src="@drawable/image_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131"
-        android:contentDescription="@string/image_scanner"/>
+        app:layout_constraintVertical_bias="0.148" />
+
+
+    <TextView
+        android:id="@+id/result_text_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_to_be_predicted"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.529" />
 
     <EditText
         android:id="@+id/detected_text"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
+        android:layout_width="282dp"
+        android:layout_height="263dp"
+        android:autofillHints="@string/text_to_be_predicted"
+        android:inputType="textMultiLine|textAutoCorrect"
+        android:text="@string/text_to_be_predicted"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/predict_button"
+        app:layout_constraintHorizontal_bias="0.631"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pic_view"
-        app:layout_constraintVertical_bias="0.175"
-        android:text="@string/text_to_be_predicted"
-        android:autofillHints="@string/text_to_be_predicted"
-        android:inputType="textMultiLine|textAutoCorrect" />
+        app:layout_constraintVertical_bias="0.752" />
 
-    <Button
-        android:id="@+id/capture_button"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/yellow"
-        android:text="@string/capture_image"
-        app:background="@drawable/button_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detected_text"
-        app:layout_constraintVertical_bias="0.12" />
-
-    <Button
-        android:id="@+id/detect_text_button"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/yellow"
-        android:text="@string/detect_text"
-        app:background="@drawable/button_bg"
+    <LinearLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/golden_circle"
         app:layout_constraintBottom_toTopOf="@+id/predict_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/capture_button"
-        />
+        app:layout_constraintEnd_toEndOf="@+id/predict_button"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/predict_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974">
 
-    <Button
+            <ImageView
+                android:id="@+id/capture_button"
+                android:padding="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera_icon_white"
+                />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/predict_button"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/yellow"
-        android:text="@string/predict"
-        app:background="@drawable/button_bg"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@drawable/golden_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/capture_button"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.967">
+
+        <ProgressBar
+            android:id="@+id/loading_bar"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:indeterminate="true"
+            android:padding="12dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:padding="12dp"
+            android:src="@drawable/arrow_right_white" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
