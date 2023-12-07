@@ -11,7 +11,7 @@ public class ApiResponseModel {
         return response;
     }
 
-    public void setResponse(String key1) {
-        this.response = key1;
-    }
+//    public void setResponse(String key1) {
+//        this.response = key1;
+//    }
 }

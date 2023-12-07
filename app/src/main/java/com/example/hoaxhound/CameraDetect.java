@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -184,10 +183,11 @@ public class CameraDetect extends AppCompatActivity {
         TextView ResultTextBox = findViewById(R.id.result_text_box);
         call.enqueue(new Callback<ApiResponseModel>() {
             @Override
-            public void onResponse(Call<ApiResponseModel> call, Response<ApiResponseModel> response) {
+            public void onResponse(@NonNull Call<ApiResponseModel> call, @NonNull Response<ApiResponseModel> response) {
                 if (response.isSuccessful()) {
                     ApiResponseModel data = response.body();
                     // Process the response data
+                    assert data != null;
                     String text = "The News Article is " + data.getResponse();
                     ResultTextBox.setText(text);
                     Loading.setVisibility(View.GONE);
@@ -198,7 +198,7 @@ public class CameraDetect extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ApiResponseModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<ApiResponseModel> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 // Handle failure
                 Log.i("API Error", "Api Error");

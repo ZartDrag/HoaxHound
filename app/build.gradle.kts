@@ -45,9 +45,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
     implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation ("com.google.android.gms:play-services-vision:20.1.3");
+    implementation ("com.google.android.gms:play-services-vision:20.1.3")
 
-    implementation ("com.google.firebase:firebase-ml-vision:24.1.0");
+    implementation ("com.google.firebase:firebase-ml-vision:24.1.0")
     implementation ("com.google.firebase:firebase-ml-vision-barcode-model:16.1.2")
 
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
