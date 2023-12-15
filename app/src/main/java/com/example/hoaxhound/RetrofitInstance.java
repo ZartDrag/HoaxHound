@@ -4,7 +4,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
 
-    private static final String BASE_URL = "https://highrider15.pythonanywhere.com/";
+    private static final String BASE_URL = "http://fake-news-detection.replit.app/";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {

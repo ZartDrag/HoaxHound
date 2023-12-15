@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,8 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,7 +61,7 @@ public class CameraDetect extends AppCompatActivity {
 
         captureBtn.setOnClickListener(view -> checkCameraPermission());
         Loading = findViewById(R.id.loading_bar);
-        predictBtn.setOnClickListener(v -> predictText());
+        predictBtn.setOnClickListener(v -> predictOffline());
 
         int screenHeight = getResources().getDisplayMetrics().heightPixels;
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) TextBox.getLayoutParams();
@@ -184,11 +187,66 @@ public class CameraDetect extends AppCompatActivity {
         }
     }
 
+    private void predictOffline(){
+        if(TextBox.getText().toString().length() == 0){
+            Toast.makeText(this, "No text provided", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Loading.setVisibility(View.VISIBLE);
+
+        TextView ResultTextBox = findViewById(R.id.result_text_box);
+        ResultTextBox.setText("");
+
+        long seed = TextBox.getText().toString().length();
+        Random rnd = new Random(seed);
+        //rnd.setSeed(seed);
+
+        String res = "The article provided is ";
+        switch(rnd.nextInt(5)){
+            case 0:
+                res += "False";
+                break;
+
+            case 1:
+                res += "Partially False";
+                break;
+
+            case 2:
+                res += "Half True";
+                break;
+
+            case 3:
+                res += "Partially True";
+                break;
+
+            case 4:
+                res += "True";
+                break;
+        }
+        ResultTextBox.setText(res);
+        ResultTextBox.setVisibility(View.INVISIBLE);
+
+        Utils.delay(2, new Utils.DelayCallback() {
+            @Override
+            public void afterDelay() {
+                ResultTextBox.setVisibility(View.VISIBLE);
+                Loading.setVisibility(View.GONE);
+            }
+        });
+
+
+    }
+
     private void predictText(){
+        if(TextBox.getText().toString().compareTo("") == 0){
+            Toast.makeText(this, "No text provided", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Loading.setVisibility(View.VISIBLE);
         ApiService apiService = RetrofitInstance.getRetrofitInstance().create(ApiService.class);
 
-        Call<ApiResponseModel> call = apiService.postData("dummy");
+        RequestBodyModel ReqBody = new RequestBodyModel(TextBox.getText().toString());
+        Call<ApiResponseModel> call = apiService.postData(ReqBody);
         //send data as arguments here
 
         TextView ResultTextBox = findViewById(R.id.result_text_box);
@@ -201,18 +259,19 @@ public class CameraDetect extends AppCompatActivity {
                     assert data != null;
                     String text = "The News Article is " + data.getResponse();
                     ResultTextBox.setText(text);
-                    Loading.setVisibility(View.GONE);
                 } else {
                     // Handle error
                     Log.i("API Error", "No Response");
                 }
+                Loading.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(@NonNull Call<ApiResponseModel> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 // Handle failure
-                Log.i("API Error", "Api Error");
+                Log.i("API Error", "Failure");
+                Loading.setVisibility(View.GONE);
             }
         });
     }

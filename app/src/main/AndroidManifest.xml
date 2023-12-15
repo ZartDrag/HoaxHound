@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/hoax_hound"
         android:supportsRtl="true"
         android:theme="@style/Theme.HoaxHound"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".CameraDetect"
